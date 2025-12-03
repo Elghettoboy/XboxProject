@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body { background-color: #1a1a1a; color: #f0f0f0; }
+    .xbox-card { background-color: #2d2d2d; border-radius: 4px; border: 1px solid #3d3d3d; margin-bottom: 20px; }
+    .xbox-header { background-color: #107C10; color: white; padding: 15px; border-radius: 4px 4px 0 0; font-weight: bold; }
+    .btn-play { background-color: #107C10; color: white; border: none; width: 100%; font-weight: bold; }
+    .btn-play:hover { background-color: #0b570b; color: white; }
+    .progress-bar-xbox { background-color: #107C10; }
+    .stat-val { font-size: 2rem; font-weight: bold; }
+    .gamertag-title { color: #107C10; text-transform: uppercase; letter-spacing: 2px; }
+</style>
+
+<div class="container mt-5">
+    <!-- Encabezado de Usuario -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h1 class="gamertag-title">Hola, {{ user.username }}</h1>
+            <p class="text-muted">Región: {{ user.region }} | Gamerscore: <strong>{{ user.gamerscore }} G</strong></p>
+        </div>
+        <div class="col-md-4 text-end">
+            {% if suscripcion and suscripcion.estado == 'Activa' %}
+                <div class="badge bg-success p-2" style="font-size: 1em;">GAME PASS {{ suscripcion.tipo_plan|upper }}</div>
+            {% else %}
+                <div class="badge bg-danger p-2">SUSCRIPCIÓN INACTIVA</div>
+            {% endif %}
+            <div class="mt-2 text-warning">
+                <i class="fas fa-star"></i> {{ user.puntos_reward }} Puntos Rewards
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Columna Izquierda: Recomendaciones -->
+        <div class="col-lg-8">
+            <div class="xbox-card">
+                <div class="xbox-header"><i class="fas fa-gamepad"></i> Recomendado para ti</div>
+                <div class="p-3">
+                    <div class="row">
+                        {% if recomendaciones %}
+                            {% for reco in recomendaciones %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card bg-dark text-white border-secondary">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success">{{ reco.juego.titulo }}</h5>
+                                        <p class="card-text small">{{ reco.motivo }}</p>
+                                        <p class="card-text"><small class="text-muted">{{ reco.juego.genero }} | Metacritic: {{ reco.juego.score_metacritic }}</small></p>
+                                        <button class="btn btn-play btn-sm">INSTALAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center p-3">Juega más títulos para recibir recomendaciones personalizadas.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Retos / Quests -->
+        <div class="col-lg-4">
+            <div class="xbox-card">
+                <div class="xbox-header"><i class="fas fa-trophy"></i> Game Pass Quests</div>
+                <div class="p-3">
+                    {% for reto in retos %}
+                    <div class="mb-4 border-bottom border-secondary pb-2">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ reto.titulo }}</strong>
+                            <span class="badge bg-warning text-dark">+{{ reto.xp }} XP</span>
+                        </div>
+                        <p class="small text-muted mb-1">{{ reto.descripcion }}</p>
+                        
+                        <div class="progress" style="height: 6px; background-color: #444;">
+                            <div class="progress-bar progress-bar-xbox" role="progressbar" style="width: {{ reto.porcentaje }}%;"></div>
+                        </div>
+                        <small class="text-muted">{{ reto.actual }} / {{ reto.objetivo }}</small>
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-outline-light btn-sm w-100">Ver todos los retos</button>
+                </div>
+            </div>
+            
+            <!-- Métricas de Retención (Simuladas para el admin/usuario) -->
+            <div class="xbox-card mt-3">
+                <div class="p-3 text-center">
+                    <h6 class="text-muted">Probabilidad de Churn</h6>
+                    <h2 class="text-success">Baja (12%)</h2>
+                    <small class="text-muted">¡Gracias por tu fidelidad!</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

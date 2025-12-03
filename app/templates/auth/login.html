@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='login.css') }}">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Iniciar Sesión</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="login">
+            <!-- Bloque para mostrar mensajes 'flash' (como "Error: Usuario incorrecto") -->
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash mensajes">
+                <ul>
+                    {% for message in messages %}
+                    <li class="flash:error">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Formulario de inicio de sesión -->
+            <form method="POST" action="" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form1">
+                    {{ form.username.label }}<br>
+                    {{ form.username(size=32, class_="form-input", placeholder="Escribe tu usuario") }}
+                </div>
+
+                <div class="form2">
+                    {{ form.password.label }}<br>
+                    {{ form.password(size=32, class_="form-input", placeholder=" Escribe tu contraseña") }}
+                </div>
+
+                {{ form.submit(class_="boton") }}
+            </form>
+
+
+            <hr>
+
+            <div class="registrolink">
+                <p>¿No tienes una cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

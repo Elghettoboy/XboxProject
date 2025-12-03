@@ -1,0 +1,123 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* esto es para que el padding no afecte el tamaño total */
+}
+
+body {
+    background-color: lightgray;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #000;
+}
+
+.login {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); 
+    width: 100%;
+    max-width: 400px; /* ancho máximo del formulario */
+}
+
+.form1, .form2 {
+    margin-bottom: 20px; /* espacio entre los campos */
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f7f7f7; /* un fondo mas claro */
+    color: #333;
+    font-size: 16px;
+    transition: all 0.3s ease; /*transición suave para el focus*/
+}
+
+.form-input:focus {
+    outline: none; /* quita el contorno por defecto */
+    border-color: #333; /*borde más oscuro al seleccionar*/
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-input::placeholder {
+    color: #888; /* color del texto de pista (placeholder) */
+}
+
+
+.boton {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #333; /* fondo oscuro para el botón */
+    color: #fff; /* texto blanco */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.boton:hover {
+    background: #555; /* nn poco más claro al pasar el mouse */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); /* efecto de "levantarse" */
+}
+
+.boton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+
+.registrolink {
+    text-align: center;
+}
+
+.registrolink p {
+    font-size: 14px;
+    color: #555;
+}
+
+.registrolink a {
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.registrolink a:hover {
+    color: #000;
+}
+
+.flash-error {
+    color: #d8000c;
+    background-color: #ffbaba;
+    border: 1px solid #d8000c;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    list-style-type: none; /* quita el punto de la lista */
+    text-align: center;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina Principal</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='protegida.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>Bienvenido, {{ current_user.username }}</h1>
+        </div>
+        <ul class="navbar-menu">
+            <!-- aqui se agrega 'main', porque pertenece a las rutasd de la carpeta main-->
+            <li><a href="{{ url_for('main.inicio') }}"><i class="fas fa-home"></i> Inicio</a></li>
+            <li class="dropdown">
+                <button class="dropbtn"><i class="fas fa-user"></i></button>
+                <div class="dropdown-content">
+                   <!--aqui se agrega el main, pq pertenece a la ruta 'main'-->
+                    <a href="{{ url_for('main.miperfil')}}">Mi perfil</a>
+                    <!-- aqui los mismo, pero de la rutas auth -->
+                    <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+        </nav>
+    
+    <main class="main-container">
+       
+        <h2>¡Bienvenido a mi primera página web funcional!</h2>
+        <p>Es un honor que visites mi página, me llamo Alessandro, mejor conocido como "ElGhettoBoy".</p>
+
+       <div class="novedades">
+            <h3>Novedades</h3>
+            <ul>
+                <li>¡Nueva página web!</li>
+                <li>Visualiza tu perfil</li>
+                <li>Pronto más actualizaciones</li>
+                <li>Pronto podras vincular tu correo</li>
+            </ul>
+        </div>
+    </main>
+
+    
+    <footer>
+       <p>©ElGhettBoy. Todos los derechos reservados a mi</p>
+    </footer>
+
+    </body>
+
+</html>
