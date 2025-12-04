@@ -1,94 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Crear una nueva cuenta</h1>
-    </header>
+{% extends "base.html" %}
 
-    <main>
-        <div class="login">
-            
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="flash-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
-            <form method="POST" action="" novalidate>
-                {{ form.hidden_tag() }}
-
-                <div class="form-group">
-                    {{ form.username.label }}
-                    {{ form.username(class_="form-input", placeholder="Elige un nombre de usuario") }}
-                    {% for error in form.username.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <h4><i class="fas fa-user-plus"></i> Crear Cuenta</h4>
                 </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Nombre de Usuario -->
+                        <div class="mb-3">
+                            {{ form.username.label(class="form-label") }}
+                            {{ form.username(class="form-control bg-secondary text-white border-0") }}
+                            {% for error in form.username.errors %}
+                                <span class="text-danger small">{{ error }}</span>
+                            {% endfor %}
+                        </div>
 
-                <div class="form-group">
-                    {{ form.email.label }}
-                    {{ form.email(class_="form-input", placeholder="tu.correo@ejemplo.com") }}
-                    {% for error in form.email.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
+                        <!-- Email (Este es el que agregamos recientemente) -->
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control bg-secondary text-white border-0") }}
+                            {% for error in form.email.errors %}
+                                <span class="text-danger small">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control bg-secondary text-white border-0") }}
+                            {% for error in form.password.errors %}
+                                <span class="text-danger small">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Confirmar Contraseña -->
+                        <div class="mb-3">
+                            {{ form.confirm_password.label(class="form-label") }}
+                            {{ form.confirm_password(class="form-control bg-secondary text-white border-0") }}
+                            {% for error in form.confirm_password.errors %}
+                                <span class="text-danger small">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            {{ form.submit(class="btn btn-success btn-lg") }}
+                        </div>
+                    </form>
                 </div>
-
-                <div class="form-group">
-                    {{ form.name.label }}
-                    {{ form.name(class_="form-input", placeholder="Tu nombre") }}
-                    {% for error in form.name.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
+                <div class="card-footer text-center border-secondary">
+                    <small class="text-muted">¿Ya tienes cuenta? <a href="{{ url_for('auth.login') }}" class="text-success fw-bold">Inicia Sesión</a></small>
                 </div>
-
-                <div class="form-group">
-                    {{ form.surname.label }}
-                    {{ form.surname(class_="form-input", placeholder="Tus apellidos") }}
-                    {% for error in form.surname.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.phone_number.label }}
-                    {{ form.phone_number(class_="form-input", placeholder="Tu número de teléfono") }}
-                    {% for error in form.phone_number.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.password.label }}
-                    {{ form.password(class_="form-input", placeholder="Crea una contraseña") }}
-                    {% for error in form.password.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.confirm_password.label }}
-                    {{ form.confirm_password(class_="form-input", placeholder="Confirma tu contraseña") }}
-                    {% for error in form.confirm_password.errors %}
-                    <span class="validation-error">{{ error }}</span>
-                    {% endfor %}
-                </div>
-
-                {{ form.submit(value="Crear Cuenta", class_="boton") }}
-            </form>
-            
-            <hr>
-
-            <div class="registrolink">
-                <p>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión aquí</a>.</p>
             </div>
         </div>
-    </main>
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}
