@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-white mb-4"><i class="fas fa-bell"></i> Centro de Mensajes</h2>
+    
+    <div class="list-group">
+        {% for notif in notificaciones %}
+        <div class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-2 rounded">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-success">
+                    {% if notif.tipo == 'Logro' %}<i class="fas fa-trophy"></i>
+                    {% elif notif.tipo == 'Sistema' %}<i class="fas fa-info-circle"></i>
+                    {% else %}<i class="fas fa-envelope"></i>{% endif %}
+                    {{ notif.tipo }}
+                </h5>
+                <small class="text-muted">{{ notif.fecha.strftime('%d-%m %H:%M') }}</small>
+            </div>
+            <p class="mb-1">{{ notif.mensaje }}</p>
+        </div>
+        {% else %}
+        <div class="alert alert-secondary text-center">
+            No tienes notificaciones nuevas.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

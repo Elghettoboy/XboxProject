@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4 text-success fw-bold">GESTIONAR GAME PASS</h1>
+            
+            <div class="card bg-dark text-white border-success mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">ESTADO ACTUAL</h5>
+                    {% if sub and sub.estado == 'Activa' %}
+                        <h2 class="text-white display-4">{{ sub.tipo_plan|upper }}</h2>
+                        <span class="badge bg-success mb-3">ACTIVA</span>
+                        <p>Tu próxima facturación es automática.</p>
+                        <a href="{{ url_for('main.cancelar_suscripcion') }}" class="btn btn-outline-danger btn-sm">
+                            Cancelar Suscripción
+                        </a>
+                    {% else %}
+                        <h2 class="text-secondary">INACTIVA</h2>
+                        <p>No tienes acceso a la biblioteca de juegos.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card bg-secondary text-white">
+                <div class="card-body">
+                    <h4>Cambiar o Renovar Plan</h4>
+                    <form method="POST" class="d-flex justify-content-center align-items-center gap-3 mt-3">
+                        {{ form.hidden_tag() }}
+                        <div class="w-50">
+                            {{ form.tipo_plan(class="form-select bg-dark text-white border-success") }}
+                        </div>
+                        {{ form.submit(class="btn btn-success fw-bold") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -73,3 +73,39 @@ class ProgresoReto(db.Model):
     usuario = db.relationship("User", back_populates="retos_progreso")
     reto = db.relationship("Reto", back_populates="usuarios_progreso")
     
+class SesionJuego(db.Model):
+    __tablename__ = 'sesion_juego'
+    id = db.Column('id_sesion', db.Integer, primary_key=True)
+    
+    # Claves foráneas (conectan con Usuario y Juego)
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id_usuario'))
+    id_juego = db.Column(db.Integer, db.ForeignKey('juego.id_juego'))
+    
+    fecha_inicio = db.Column(db.DateTime, default=datetime.utcnow)
+    duracion_minutos = db.Column(db.Integer)
+    
+    # Relaciones para poder decir "sesion.juego.titulo"
+    juego = db.relationship('Juego')
+    usuario = db.relationship('User', backref='sesiones')
+    
+# --- MODELO RECOMPENSA ---
+class Recompensa(db.Model):
+    __tablename__ = 'recompensa'
+    id = db.Column('id_recompensa', db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    costo = db.Column('costo_puntos', db.Integer, nullable=False)
+    tipo = db.Column(db.String(50)) # 'Digital', 'Fisica', etc.
+    
+    # Método para formatear el precio bonito (ej: 5,000)
+    @property
+    def costo_formato(self):
+        return "{:,}".format(self.costo)
+    
+class Notificacion(db.Model):
+    __tablename__ = 'notificacion'
+    id = db.Column('id_notificacion', db.Integer, primary_key=True)
+    user_id = db.Column('id_usuario', db.Integer, db.ForeignKey('usuario.id_usuario'))
+    mensaje = db.Column(db.Text, nullable=False)
+    tipo = db.Column('tipo_trigger', db.String(50)) # 'Logro', 'Sistema', 'Recomendacion'
+    estado = db.Column('estado', db.String(20), default='Pendiente')
+    fecha = db.Column('fecha_envio', db.DateTime, default=datetime.utcnow)

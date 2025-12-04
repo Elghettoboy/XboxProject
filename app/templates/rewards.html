@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="text-warning fw-bold"><i class="fas fa-medal"></i> MICROSOFT REWARDS</h1>
+        <p class="lead text-white">Canjea tus puntos por recompensas exclusivas</p>
+        <div class="badge bg-warning text-dark p-3 fs-5">
+            Tus Puntos: <strong>{{ user.puntos_reward }}</strong>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for premio in premios %}
+        <div class="col-md-3 mb-4">
+            <div class="card bg-dark text-white border-secondary h-100">
+                <div class="card-body text-center d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title text-success">{{ premio.nombre }}</h5>
+                        <div class="my-3">
+                            {% if premio.tipo == 'Digital' %}
+                                <i class="fas fa-ticket-alt fa-3x text-muted"></i>
+                            {% elif premio.tipo == 'Cosmetico' %}
+                                <i class="fas fa-tshirt fa-3x text-muted"></i>
+                            {% else %}
+                                <i class="fas fa-gamepad fa-3x text-muted"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <h3 class="text-warning fw-bold">{{ premio.costo_formato }} pts</h3>
+                        
+                        {% if user.puntos_reward >= premio.costo %}
+                            <!-- Botón Habilitado -->
+                            <a href="{{ url_for('main.canjear', id_premio=premio.id) }}" class="btn btn-outline-warning w-100 fw-bold">
+                                CANJEAR
+                            </a>
+                        {% else %}
+                            <!-- Botón Deshabilitado -->
+                            <button class="btn btn-secondary w-100" disabled>
+                                Faltan {{ premio.costo - user.puntos_reward }} pts
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

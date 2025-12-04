@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-success">
+                <div class="card-header bg-success text-white">
+                    <h4><i class="fas fa-gamepad"></i> Registrar Nueva Partida</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.juego_id.label(class="form-label") }}
+                            {{ form.juego_id(class="form-select bg-secondary text-white border-0") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.duracion.label(class="form-label") }}
+                            {{ form.duracion(class="form-control bg-secondary text-white border-0") }}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-success btn-lg") }}
+                            <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-light">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

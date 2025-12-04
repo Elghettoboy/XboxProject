@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Tarjeta de Perfil -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-success mb-4">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-user-circle fa-5x text-success"></i>
+                    </div>
+                    <h3>{{ user.username }}</h3>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <hr class="border-secondary">
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <h5>{{ user.gamerscore }}</h5>
+                            <small class="text-muted">Gamerscore</small>
+                        </div>
+                        <div>
+                            <h5>{{ horas }} h</h5>
+                            <small class="text-muted">Tiempo Total</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Historial -->
+        <div class="col-md-8">
+            <h3 class="text-white mb-3"><i class="fas fa-history"></i> Historial de Partidas</h3>
+            
+            {% if historial %}
+            <div class="table-responsive">
+                <table class="table table-dark table-hover border-secondary">
+                    <thead class="text-success">
+                        <tr>
+                            <th>Juego</th>
+                            <th>Fecha</th>
+                            <th>Duración</th>
+                            <th>XP Ganada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sesion in historial %}
+                        <tr>
+                            <td class="fw-bold">{{ sesion.juego.titulo }}</td>
+                            <td>{{ sesion.fecha_inicio.strftime('%d-%m-%Y') }}</td>
+                            <td>{{ sesion.duracion_minutos }} min</td>
+                            <td class="text-warning">+10 XP</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <div class="alert alert-secondary">
+                    No has registrado partidas aún. ¡Ve al Dashboard y registra una!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

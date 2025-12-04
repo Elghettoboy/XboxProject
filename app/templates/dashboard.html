@@ -19,16 +19,34 @@
             <h1 class="gamertag-title">Hola, {{ user.username }}</h1>
             <p class="text-muted">Región: {{ user.region }} | Gamerscore: <strong>{{ user.gamerscore }} G</strong></p>
         </div>
+        
+        <!-- SECCIÓN ACTUALIZADA (Paso 4): Ahora es un enlace clicable -->
         <div class="col-md-4 text-end">
-            {% if suscripcion and suscripcion.estado == 'Activa' %}
-                <div class="badge bg-success p-2" style="font-size: 1em;">GAME PASS {{ suscripcion.tipo_plan|upper }}</div>
-            {% else %}
-                <div class="badge bg-danger p-2">SUSCRIPCIÓN INACTIVA</div>
-            {% endif %}
-            <div class="mt-2 text-warning">
-                <i class="fas fa-star"></i> {{ user.puntos_reward }} Puntos Rewards
+            <a href="{{ url_for('main.suscripcion') }}" class="text-decoration-none">
+                {% if suscripcion and suscripcion.estado == 'Activa' %}
+                    <div class="badge bg-success p-2" style="font-size: 1em; cursor: pointer;">
+                        GAME PASS {{ suscripcion.tipo_plan|upper }} <i class="fas fa-cog ms-1"></i>
+                    </div>
+                {% else %}
+                    <div class="badge bg-danger p-2" style="cursor: pointer;">
+                        SUSCRIPCIÓN INACTIVA <i class="fas fa-plus ms-1"></i>
+                    </div>
+                {% endif %}
+            </a>
+            
+            <div class="mt-2">
+                 <a href="{{ url_for('main.rewards') }}" class="text-warning text-decoration-none fw-bold">
+                 <i class="fas fa-star"></i> {{ user.puntos_reward }} Puntos Rewards (Ir a Tienda)
+                </a>
             </div>
         </div>
+    </div>
+
+    <!-- Botón de Registrar Partida -->
+    <div class="mb-4">
+        <a href="{{ url_for('main.registrar_partida') }}" class="btn btn-success w-100">
+            <i class="fas fa-plus-circle"></i> REGISTRAR PARTIDA
+        </a>
     </div>
 
     <div class="row">
@@ -82,7 +100,7 @@
                 </div>
             </div>
             
-            <!-- Métricas de Retención (Simuladas para el admin/usuario) -->
+            <!-- Métricas de Retención -->
             <div class="xbox-card mt-3">
                 <div class="p-3 text-center">
                     <h6 class="text-muted">Probabilidad de Churn</h6>
